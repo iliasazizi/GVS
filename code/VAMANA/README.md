@@ -45,7 +45,7 @@ Where:
 
 
 ### Parameters
-We tune both parameters and selecte the ones giving the best efficiency accuracy tradeoff
+We tune all parameters and select the values giving the best efficiency accuracy tradeoff
 
 ### Parameters Table
 
