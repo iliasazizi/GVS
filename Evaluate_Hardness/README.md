@@ -10,13 +10,13 @@ CURR_QUERIES=queries
 LEN=256
 SIZE=1000000                             
 NQ=100                                   
-```
+
 
 LOGOUT=$LOGS/RCLIDD_${CURR_DATASET}_${SIZE}_${LEN}.log
 $PRJ_DIR/eval.sh ${CURR_DATASET} ${SIZE} ${CURR_QUERIES} ${NQ} $LEN 2 $LOGOUT    # Compute LID and RC only vs data points
 
 LOGOUT=$LOGS/RCLIDQ_${CURR_DATASET}_${SIZE}_${LEN}.log
 $PRJ_DIR/eval.sh ${CURR_DATASET} ${SIZE} ${CURR_QUERIES} ${NQ} $LEN 3 $LOGOUT  #DATA and query
-
+```
 
 ## Comparing same measure on data vs data and queries gives insights on nature of the hardness, is it a queryr level or data level hardness
