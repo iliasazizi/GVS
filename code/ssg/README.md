@@ -1,8 +1,8 @@
-# The Source Code for NSG
+# The Source Code for SSG
 
 ### Introduction
 
-This repository contains the source code for the **NSG** algorithm,
+This repository contains the source code for the **SSG** algorithm,
 ### Modifications
 
 We have modified the original code by:
