@@ -1,0 +1,35 @@
+#!/bin/bash
+
+LOGS=logs/index_log
+INDEX_DIR=index
+
+#######CREATE DIRS IF NOT EXISTING ALREADY
+mkdir -p $LOGS
+mkdir -p $INDEX_DIR
+
+
+
+IS_CACHE=nocache
+
+A=60
+DATASET=datasetname
+CURR_DATASET=$DATA/$DATASET.bin
+QUERIES=queriesname
+CURR_QUERIES=$DATA/$QUERIES.bin
+LEN=256
+SIZE=1000000
+
+
+KINIT=80
+LINIT=256
+
+
+SIZE=1000000
+R=60
+L=600
+
+INIT_INDEX=../efanna/index/EFANNA_${SIZE}_${KINIT}_${LINIT}_${DATASET}_${LEN}/index.graph
+INDEX=$INDEX_DIR/SSG_${SIZE}_${KINIT}_${L}_${R}_${A}/
+LOGOUT=$LOGS/SSG_${DATASET}_${SIZE}_${LEN}_${KINIT}_${L}_${R}_${A}_index.log
+
+$PRJ_DIR/indexssg.sh  $CURR_DATASET $SIZE $LEN $INIT_INDEX $INDEX $L $R $A 0 $LOGOUT
