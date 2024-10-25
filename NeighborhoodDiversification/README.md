@@ -1,31 +1,3 @@
- <meta name="robots" content="noindex">
- 
-# Graph-Based Vector Similarity Search: An Experimental Evaluation of the State-of-the-Art
-
-## Introduction
-Collections of vector data often expand to billions of vectors with thousands of dimensions, thereby escalating the complexity of analysis. Similarity search serves as the linchpin for numerous critical analytical tasks. Graph-based similarity search has recently emerged as the preferred method for analytical tasks that do not necessitate theoretical guarantees on the quality of answers.
-In this survey, we undertake a thorough evaluation of ten state-of-the-art in-memory graph-based similarity search methods :
-
-|   SOTA Alg.   |     PAPER     |   CODE   |
-|:--------:|:------------:|:--------:|
-|  KGraph  |  [WWW'2011](https://dl.acm.org/doi/abs/10.1145/1963405.1963487)  |  [C++/Python](https://github.com/aaalgo/kgraph)  |
-|  NSG        |    [VLDB'2019](http://www.vldb.org/pvldb/vol12/p461-fu.pdf)    | [C++](https://github.com/ZJULearning/nsg)      |
-|  DPG        |    [TKDE'2019](https://ieeexplore.ieee.org/abstract/document/8681160)    | [C++](https://github.com/DBWangGroupUNSW/nns_benchmark/tree/master/algorithms/DPG) |
-|  Vamana     |    [NeurIPS'2019](http://harsha-simhadri.org/pubs/DiskANN19.pdf)    |  [C++](https://github.com/microsoft/DiskANN)  |
-|  EFANNA     |    [arXiv'2016](https://arxiv.org/abs/1609.07228)    | [C++](https://github.com/ZJULearning/efanna_graph) |
-|  HNSW       | [TPAMI'2018](https://ieeexplore.ieee.org/abstract/document/8594636) | [C++/Python](https://github.com/nmslib/hnswlib) |
-|  SPTAG-KDT  |  [ACM MM'2012](https://dl.acm.org/doi/abs/10.1145/2393347.2393378); [CVPR'2012](https://ieeexplore.ieee.org/abstract/document/6247790); [TPAMI'2014](https://ieeexplore.ieee.org/abstract/document/6549106)  | [C++](https://github.com/microsoft/SPTAG) |
-|  SPTAG-BKT  | [ACM MM'2012](https://dl.acm.org/doi/abs/10.1145/2393347.2393378); [CVPR'2012](https://ieeexplore.ieee.org/abstract/document/6247790); [TPAMI'2014](https://ieeexplore.ieee.org/abstract/document/6549106) | [C++](https://github.com/microsoft/SPTAG) |
-|  HCNNG      |  [PR'2019](https://www.sciencedirect.com/science/article/abs/pii/S0031320319302730)  |[C++](https://github.com/Lsyhprum/WEAVESS) |
-|  ELPIS      |  [VLDB'2023](https://www.vldb.org/pvldb/vol16/p1548-azizi.pdf)  |[C++](https://helios2.mi.parisdescartes.fr/~themisp/elpis/data/elpis-sourcecode.zip)|
-
-
-Furthermore, we present a survey delineating the chronological evolution of these methods and evaluate their key design decisions, encompassing Seed Selection (SS) and Neighborhood Diversification (ND). This repository contains the code utilized to evaluate different design choices for SS and ND.
-
-## Datasets
-We use the following four real datasets covering a variety of domains from deep network embeddings, computer vision, neuroscience and seismology: (i) Deep contains 1 billion vectors of 96 dimensions extracted from the last layers of a convolutional
-neural network; (ii) Sift consists of 1 billion SIFT vectors of size 128 representing image feature descriptions; (iii) SALD contains neuroscience MRI data and includes 200 million data series of size 128; (iv) Seismic  contains 100 million data series of size 256 representing earthquake recordings at seismic stations worldwide.
-
 ## ND/SS experiments
 ND and SS experiments code is based on [nmslib/hnswlib code](https://github.com/nmslib/hnswlib)  for constructing insertion-based graphs with various ND approaches and executing searches using multiple SS techniques.
 
