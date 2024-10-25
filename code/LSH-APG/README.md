@@ -1,12 +1,12 @@
 # The Source Code for LSH-APG
 
-## Introduction
+### Introduction
 
 This repository contains the source code for the **LSH-APG** algorithm, as described in the paper:
 
 **"Towards Efficient Index Construction and Approximate Nearest Neighbor Search in High-Dimensional Spaces" (Submitted to PVLDB 2023).**
 
-## Modifications
+### Modifications
 
 We have modified the original code by:
 
@@ -14,17 +14,36 @@ We have modified the original code by:
 
 2. **Facilitating experiment management**: Provided a C++ `main.cpp` interface to run indexing and search separately, simplifying the process of managing and running experiments on LSH-APG.
 
-## Building
 
-Run the script `release` to build the project using CMake.
+### Prerequisites
 
-## Indexing
+- GCC 4.9+ with OpenMP
+- CMake 3.5+
 
-To run the index, please specify:
+### Compilation on Linux
+```shell
+mkdir Release
+cd Release
+cmake -DCMAKE_BUILD_TYPE=Release ..
+make
+```
 
-- The dataset name and path.
-- The number of points and dimensions.
-- Values for the parameters **M**, **EFC**, **Number of Hash Tables (NH)**, and **Low Dimensions (LD)** in `workload_builder.sh`.
+
+### Building
+```shell
+./Release/bin/LSHAPG --dataset dataset.bin --dataset-size n --timeseries-size dim --index-path indexdirname --K R --L L --nhashtab nh --lowdim ld --mode 0
+```
+
+Where:
+- `path/dataset.bin` is the absolute path to the dataset binary file.
+- `n` is the dataset size.
+- `path/indexdirname/` is the absolute path where the index will be stored (the index folder should not already exist).
+- `dim` is the dimension.
+- `R` is the maximum outdegree for nodes during graph construction.
+- `L` is the beamwidth during candidate neighbor search.
+- `nh` is the number of hash tables
+- `ld` is Low dimensionality : number of hashes per table
+
 
 ### Parameters
 
@@ -55,15 +74,15 @@ We vary **NH** and **LD** from 2,16 to 3,32 respectively, depending on the datas
 | **NH**        | Number of Hash Tables                     | 2                        | 2 - 3                     |
 | **LD**        | Low Dimensionality for Projection         | 16                       | 16 - 32                   |
 
-## Search
+### Search
+```shell
+/Release/bin/LSHAPG --dataset dataset.bin --dataset-size n --queries path/queries.bin --queries-size nq --index-path path/indexdirname/ --timeseries-size dim  --K k  --L beamwidth 
+```
+Where:
+- `path/queries.bin` is the absolute path to the query set binary file.
+- `nq` is the query set size.
+- `k` is  the number of queries to be answered.
+- `L` is thebeam width size (should be greater than **K**).
 
-To run the search, please specify:
-
-- The dataset name and query set.
-- The indexing values and path to the indices folder.
-- The number of nearest neighbors **K** to retrieve from the search.
-- The number of queries to be answered.
-- The workload information.
-- The beam width size (should be greater than **K**).
-
-Please ensure all parameters are correctly set before running the experiments.
+### Workload
+To automate multiple run, please change the workload.sh with correct data path and parameters 
