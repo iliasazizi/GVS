@@ -1,4 +1,4 @@
-# The Source Code for KGRAPH
+# The Source Code for HCNNG
 
 ### Introduction
 
