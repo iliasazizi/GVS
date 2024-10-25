@@ -11,8 +11,16 @@ else()
     message(FATAL_ERROR "no OpenMP supprot")
 endif()
 
-
-
+#OpenBLAS
+#list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/module)
+#find_package(OpenBLAS REQUIRED)
+#include_directories(${OpenBLAS_INCLUDE_DIR})
+#set(BLAS_LIB ${OpenBLAS_LIB})
+set(Boost_INCLUDE_DIR /home/ilias.azizi/lustre/scalableml-um6p-st-sccs-10v5rwpbsmu/azizi-lustre/projects/libs/boost_1_50_0)
+set(Boost_LIBRARY_DIR /home/ilias.azizi/lustre/scalableml-um6p-st-sccs-10v5rwpbsmu/azizi-lustre/projects/libs/boost_1_50_0/stage/lib/)
+find_package(Boost COMPONENTS system filesystem REQUIRED)
+include_directories(${Boost_INCLUDE_DIR})
+link_directories(${Boost_LIBRARY_DIR})
 find_package(Boost REQUIRED COMPONENTS timer chrono system program_options)
 
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fopenmp -ftree-vectorize -ftree-vectorizer-verbose=0")
