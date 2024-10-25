@@ -57,7 +57,7 @@ We tune both parameters and selecte the ones giving the best efficiency accuracy
 
 ### Search
 ```shell
-/Release/tests/nsg --queries path/queries.bin --queries-size nq --index-path path/indexdirname/ --timeseries-size dim  --K k  --L beamwidth 
+/Release/tests/ssg --queries path/queries.bin --queries-size nq --index-path path/indexdirname/ --timeseries-size dim  --K k  --L beamwidth 
 ```
 Where:
 - `path/queries.bin` is the absolute path to the query set binary file.
