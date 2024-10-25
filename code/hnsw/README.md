@@ -30,7 +30,7 @@ make
 
 ### Building
 ```shell
-./Release/bin/HNSW --dataset dataset.bin --dataset-size n --timeseries-size dim --index-path indexdirname --M M --efconstruction EFC --mode 0
+./Release/HNSW --dataset dataset.bin --dataset-size n --timeseries-size dim --index-path indexdirname --M M --efconstruction EFC --mode 0
 ```
 
 Where:
@@ -55,7 +55,7 @@ We tune both parameters and selecte the ones giving the best efficiency accuracy
 
 ### Search
 ```shell
-/Release/bin/HNSW --queries path/queries.bin --queries-size nq --index-path path/indexdirname/ --timeseries-size dim  --K k  --L beamwidth 
+/Release/HNSW --queries path/queries.bin --queries-size nq --index-path path/indexdirname/ --timeseries-size dim  --K k  --L beamwidth 
 ```
 Where:
 - `path/queries.bin` is the absolute path to the query set binary file.
