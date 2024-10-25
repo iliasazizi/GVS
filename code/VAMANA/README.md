@@ -1,8 +1,8 @@
-# The Source Code for HNSW
+# The Source Code for VAMANA
 
 ### Introduction
 
-This repository contains the source code for the **HNSW** algorithm,
+This repository contains the source code for the **VAMANA** algorithm,
 ### Modifications
 
 We have modified the original code by:
@@ -11,7 +11,7 @@ We have modified the original code by:
 
 2. **Facilitating experiment management**: Provided a C++ `main.cpp` interface to run indexing and search separately, simplifying the process of managing and running experiments on HNSW
 3. **Improving the search efficiency**: We adopt a single priority queue beam width for search instead of original code in HNSW for search using inefficient double priority queue for search. A single priority queue search is used accross different graph method in our experiment Please refer to the supplementary material for more details
-4. 
+
 
 
 ### Prerequisites
