@@ -11,11 +11,7 @@ else()
     message(FATAL_ERROR "no OpenMP supprot")
 endif()
 
-#OpenBLAS
-#list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/module)
-#find_package(OpenBLAS REQUIRED)
-#include_directories(${OpenBLAS_INCLUDE_DIR})
-#set(BLAS_LIB ${OpenBLAS_LIB})
+
 
 find_package(Boost REQUIRED COMPONENTS timer chrono system program_options)
 
