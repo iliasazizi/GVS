@@ -5,6 +5,18 @@
 #ifndef TESTS_PTK_H
 #define TESTS_PTK_H
 #include <chrono>
+//#ifndef DC_IDX
+//#define DC_IDX
+//#endif
+
+//#ifndef STATSND
+//#define STATSND
+//#endif
+
+struct statsidx{
+    unsigned int ndc;
+    float rationd;
+};
 namespace PTK {
 
     class Timer {
@@ -51,4 +63,5 @@ namespace PTK {
         long saxdist_computations_hsl;
     } querying_stats;
 }
+unsigned long long int ndc_index = 0;
 #endif //TESTS_PTK_H

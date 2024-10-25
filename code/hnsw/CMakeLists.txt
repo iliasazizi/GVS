@@ -1,19 +1,17 @@
 cmake_minimum_required(VERSION 3.5)
-project(hnsw)
+project(WTS)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -mavx -mavx2 -msse3  -fopenmp ")
 
 include_directories(include)
 
-set(LIBSAX src/sax.cpp)
-add_library(libsax STATIC ${LIBSAX})
+###FOR TCMALLOC
+set(Gperftools_INCLUDE_DIR /home/ilias.azizi/lustre/scalableml-um6p-st-sccs-10v5rwpbsmu/azizi-lustre/projects/libs/gperftools/src/)
+set(Gperftools_LIBRARY_DIR /home/ilias.azizi/lustre/scalableml-um6p-st-sccs-10v5rwpbsmu/azizi-lustre/projects/libs/gperftools/build/)
+include_directories(${Gperftools_INCLUDE_DIR})
+link_directories(${Gperftools_LIBRARY_DIR})
 
 
-# Find the HDF5 package
-find_package(HDF5 REQUIRED COMPONENTS CXX)
-
-include_directories(${HDF5_INCLUDE_DIRS})
-
-add_executable(HNSW main.cpp)
-target_link_libraries(HNSW libsax  ${HDF5_CXX_LIBRARIES})
+add_executable(WTSS main.cpp)
+target_link_libraries(WTSS -ltcmalloc)

@@ -70,15 +70,17 @@ namespace hnswlib {
     template<typename dist_t>
     class AlgorithmInterface {
     public:
-//        virtual void addPoint(const void *datapoint, labeltype label)=0;
-        virtual void addPoint(const void *datapoint, labeltype label, float rng)=0;
+        virtual void addPoint(const void *datapoint, labeltype label, int rng, float prune, int cnt, int range)=0;
+        virtual void addPoint_ksrep(const void *datapoint, labeltype label, int rng, float prune)=0;
         virtual std::priority_queue<std::pair<dist_t, labeltype >> searchKnn(const void *, size_t, double &, double &, double &) const = 0;
         virtual std::priority_queue<std::pair<dist_t, labeltype >> searchKnn(const void *, size_t) const = 0;
 //        virtual float * searchGraph(const void *, size_t, double &, double &, double &) const = 0;
-        virtual float * searchGraph(const void *, size_t, querying_stats &) const = 0;
-        virtual float * searchGraphBsl(const void *, size_t, querying_stats &) const = 0;
-        virtual float * searchGraphSax(const void *,float *, size_t, querying_stats &, int) const = 0;
-//        virtual float * getSaxDist(float *, unsigned char * ) const =0;
+        virtual std::pair<float *,unsigned int *>  searchGraph(const void *, size_t, querying_stats &) const = 0;
+        virtual std::pair<float *,unsigned int *>  searchGraphBsl(const void *, size_t, querying_stats &) const = 0;
+        virtual float * searchGraphBSFSPQ(const void *, size_t, querying_stats &) const = 0;
+        virtual float * searchGraphBSFSPQALIGNMEM(const void *, size_t, querying_stats &) const = 0;
+        virtual float * searchGraphBslrdseed(const void *, size_t, querying_stats &) const = 0;
+        virtual float * searchGraphBsltreeps(const void *, size_t,uint*, querying_stats &) const = 0;
         // Return k nearest neighbor in the order of closer fist
         virtual std::vector<std::pair<dist_t, labeltype>>
             searchKnnCloserFirst(const void* query_data, size_t k) const;

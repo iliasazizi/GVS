@@ -1,8 +1,10 @@
 #pragma once
 #include "hnswlib.h"
+#include <atomic>
 
 namespace hnswlib {
 
+    std::atomic<unsigned long long> dc_counter;
     static float
     L2Sqr(const void *pVect1v, const void *pVect2v, const void *qty_ptr) {
         float *pVect1 = (float *) pVect1v;
@@ -24,6 +26,10 @@ namespace hnswlib {
     // Favor using AVX if available.
     static float
     L2SqrSIMD16Ext(const void *pVect1v, const void *pVect2v, const void *qty_ptr) {
+
+#ifdef DC_IDX
+        dc_counter.fetch_add(1, std::memory_order_relaxed);
+#endif
         float *pVect1 = (float *) pVect1v;
         float *pVect2 = (float *) pVect2v;
         size_t qty = *((size_t *) qty_ptr);
@@ -171,9 +177,12 @@ namespace hnswlib {
         DISTFUNC<float> fstdistfunc_;
         size_t data_size_;
         size_t dim_;
+
     public:
         L2Space(size_t dim) {
             fstdistfunc_ = L2Sqr;
+
+            dc_counter.store(0);
         #if defined(USE_SSE) || defined(USE_AVX)
             if (dim % 16 == 0)
                 fstdistfunc_ = L2SqrSIMD16Ext;
