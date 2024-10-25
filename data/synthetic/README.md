@@ -1,1 +1,1 @@
-#Generate infinite of Data and query sets with varying hardness using the python scriptt
+#Generate power-law datasets and query workloads with varying hardness using the python script
