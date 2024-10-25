@@ -1,2 +1,0 @@
---dataset /home/iazizi/DATA/data_size1M_seed1184_len256_znorm.bin --index-path /home/iazizi/CLionProjects/efannae/index1k/ --dataset-size 1000 --timeseries-size 256
---mode 1 --queries /home/iazizi/DATA/queries_size1K_seed14784_len256_znorm.bin --queries-size 10 --mlevel 8 --trees 8 --iterations 8 --L 10 --R 25 --K 10 --S 10
