@@ -1,6 +1,4 @@
 #!/bin/bash
-ROOT=/home/ilias.azizi/lustre/scalableml-um6p-st-sccs-10v5rwpbsmu/azizi-lustre
-#!/bin/bash
 DATA=DATA
 PRJ_DIR=/efanna
 LOGS=$PRJ_DIR/logs/index_log
