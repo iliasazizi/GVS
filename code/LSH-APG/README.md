@@ -1,55 +1,69 @@
-# The Source Code for LSH-APG (PVLDB 2023)
------------------------------------------------------------------------------------------------------------------
+# The Source Code for LSH-APG
+
 ## Introduction
-This is a source code for the algorithm described in the paper **Towards Efficient Index Construction and Approximate Nearest Neighbor Search in High-Dimensional Spaces (Submitted to PVLDB 2023)**. We call it as **LG** project.
 
-## Compilation
+This repository contains the source code for the **LSH-APG** algorithm, as described in the paper:
 
-**LG** project is written by **C++** and can be complied by **g++** in **Linux** and **MSVC** in **Windows**. It adopt `openMP` for parallelism.
+**"Towards Efficient Index Construction and Approximate Nearest Neighbor Search in High-Dimensional Spaces" (Submitted to PVLDB 2023).**
 
+## Modifications
 
-### Installation
-#### Windows
-We can use **Visual Studio 2019** to build the project with importing all the files in the directory `./cppCode/LSH-APG/src/`.
+We have modified the original code by:
 
-#### Linux
-```bash
-cd ./cppCode/LSH-APG
-make
-```
-The excutable file is then in dbLSH directory, called as `lgo`
+1. **Adding binary file support**: Implemented functionality to load raw vector data from binary files, requiring only the number of points and dimensions as input.
 
-## Usage
+2. **Facilitating experiment management**: Provided a C++ `main.cpp` interface to run indexing and search separately, simplifying the process of managing and running experiments on LSH-APG.
 
-### Command Usage
+## Building
 
--------------------------------------------------------------------
-> lgo datasetName
--------------------------------------------------------------------
-(the first parameter specifies the procedure be executed and change)
+Run the script `release` to build the project using CMake.
 
-### Parameter explanation
+## Indexing
 
-- datasetName  : dataset name
--------------------------------------------------------------------
+To run the index, please specify:
 
-FOR EXAMPLE, YOU CAN RUN THE FOLLOWING CODE IN COMMAND LINE AFTER BUILD ALL THE TOOLS:
+- The dataset name and path.
+- The number of points and dimensions.
+- Values for the parameters **M**, **EFC**, **Number of Hash Tables (NH)**, and **Low Dimensions (LD)** in `workload_builder.sh`.
 
-```bash
-cd ./cppCode/LSH-APG
-./lgo audio
-```
+### Parameters
 
-## Dataset
+Following the authors' suggestions, we use the following values:
 
-In our project, the format of the input file (such as `audio.data_new`, which is in `float` data type) is the same as that in [LSHBOX](https://github.com/RSIA-LIESMARS-WHU/LSHBOX). It is a binary file, which is organized as the following format:
+#### For 1M Dataset
 
->{Bytes of the data type (int)} {The size of the vectors (int)} {The dimension of the vectors (int)} {All of the binary vector, arranged in turn (float)}
+- **M** = 20
+- **EFC** = 600
+- **NH** = 2
+- **LD** = 16
 
+#### For 25GB Dataset
 
-For your application, you should also transform your dataset into this binary format, then rename it as `[datasetName].data_new` and put it in the directory `./dataset`.
+We use similar values:
 
-A sample dataset `audio.data_new` has been put in the directory `./dataset`.
-Also, you can get it, `audio.data`, from [here](http://www.cs.princeton.edu/cass/audio.tar.gz)(if so, rename it as `audio.data_new`). If the link is invalid, you can also get it from [data](https://github.com/RSIA-LIESMARS-WHU/LSHBOX-sample-data).
+- **M** = 30
+- **EFC** = 600
 
-For the datasets we use, you can get the raw data from following links: [MNIST](http://yann.lecun.com/exdb/mnist/index.html), [Deep1M](https://www.cse.cuhk.edu.hk/systems/hash/gqr/dataset/deep1M.tar.gz), [GIST](http://corpus-texmex.irisa.fr/), [TinyImages80M](https://hyper.ai/tracker/download?torrent=6552), [SIFT](http://corpus-texmex.irisa.fr/). Next, you should transform your raw dataset into the mentioned binary format, then rename it is `[datasetName].data_new` and put it in the directory `./dataset`.
+We vary **NH** and **LD** from 2,16 to 3,32 respectively, depending on the dataset's complexity.
+
+### Parameters Table
+
+| **Parameter** | **Description**                           | **Values (1M Dataset)** | **Values (25GB Dataset)** |
+|---------------|-------------------------------------------|--------------------------|---------------------------|
+| **M**         | Maximum connections per node              | 20                       | 30                        |
+| **EFC**       | Entry Filter Complexity                   | 600                      | 600                       |
+| **NH**        | Number of Hash Tables                     | 2                        | 2 - 3                     |
+| **LD**        | Low Dimensionality for Projection         | 16                       | 16 - 32                   |
+
+## Search
+
+To run the search, please specify:
+
+- The dataset name and query set.
+- The indexing values and path to the indices folder.
+- The number of nearest neighbors **K** to retrieve from the search.
+- The number of queries to be answered.
+- The workload information.
+- The beam width size (should be greater than **K**).
+
+Please ensure all parameters are correctly set before running the experiments.
