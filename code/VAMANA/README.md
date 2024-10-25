@@ -51,8 +51,8 @@ We tune all parameters and select the values giving the best efficiency accuracy
 
 | **Parameter** | **Description**                           | **Values (1M Dataset)** | **Values (25GB Dataset)**  | **Values (25GB Dataset)**| **Values (1B Dataset)**  |
 |---------------|-------------------------------------------|--------------------------|---------------------------|--------------------------|---------------------------|
-| **M**         | Maximum connections per node              | 40                       | 60                        | 60                       | 60                        |
-| **EFC**       | Beam width during search                  | 256                      | 600                       | 800                      | 1000                      |
+| **K**         | Maximum connections per node              | 40                       | 60                        | 60                       | 60                        |
+| **L**       | Beam width during search                  | 256                      | 600                       | 800                      | 1000                      |
 | **C**       | range                 | 400                     | 600                     | 800                     | 1000                     |
 | **alpha**       | RRND parameters                 | 1.2                      | 1.2                      | 1.1                      | 1.1                      |
 
