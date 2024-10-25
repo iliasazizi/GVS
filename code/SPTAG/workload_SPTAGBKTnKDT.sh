@@ -1,0 +1,36 @@
+#!/bin/bash
+
+VERSION=FINAL1M
+
+
+#######CREATE DIRS IF NOT EXISTING ALREADY
+mkdir -p $LOGS
+
+MAXCHECK=8192
+TREENUMBER=1
+INDEGREE=32
+ALGO=KDT
+ALGO=BKT
+MODE=0 #indexing
+
+TPTNumber=32
+TPTLeafSize=2000
+MaxCheck=16324
+MaxCheckForRefineGraph=16324
+RefineIterations=3
+
+if [false]; then
+
+
+
+
+
+mkdir -p $INDEX_DIR/SEISMIC
+
+
+
+INDEX=$INDEX_DIR/SEISMIC/SPTAG_${SIZE}_${ALGO}_${DATASET}_${LEN}_${MAXCHECK}_${TREENUMBER}_${INDEGREE}_${TPTNumber}
+LOGOUT=$LOGS/SPTAG_${DATASET}_${SIZE}_${ALGO}_${LEN}_${MAXCHECK}_${TREENUMBER}_${INDEGREE}_${TPTNumber}_index.log
+$PRJ_DIR/workloadsexample/indexsptag.sh $CURR_DATASET $SIZE $INDEX $LEN $ALGO $MAXCHECK $TREENUMBER $INDEGREE  $TPTNumber $TPTLeafSize $MaxCheckForRefineGraph $MODE $LOGOUT 
+
+
