@@ -1,191 +1,71 @@
-#!/bin/bash
-ROOT=/home/ilias.azizi/lustre/scalableml-um6p-st-sccs-10v5rwpbsmu/azizi-lustre
-DATA=$ROOT/DATA
-PRJ_DIR=$ROOT/projects/VAMANA
-LOGS=$PRJ_DIR/logs/index_log
-INDEX_DIR=$PRJ_DIR/index
+# The Source Code for HNSW
 
-#######CREATE DIRS IF NOT EXISTING ALREADY
-mkdir -p $LOGS
-mkdir -p $INDEX_DIR
+### Introduction
 
+This repository contains the source code for the **HNSW** algorithm,
+### Modifications
 
+We have modified the original code by:
 
-IS_CACHE=nocache
-DATASET=data_size200GB_t2i_len200_norm
-CURR_DATASET=$DATA/$DATASET.bin
-QUERIES=queries_size100K_t2i_len200_org
-CURR_QUERIES=$DATA/queries/t2i/$QUERIES.bin
-LEN=200
-SIZE=1000000
+1. **Adding binary file support**: Implemented functionality to load raw vector data from binary files, requiring only the number of points and dimensions as input.
 
-SIZE=40000000
-R=60
-L=128
-C=128
-A=1.2
-
-INDEX=$INDEX_DIR/$DATAS/VAMANA_${SIZE}_${R}_${L}_${C}_${A}/
-LOGOUT=$LOGS/VAMANA_${DATASET}_${SIZE}_${LEN}_${R}_${L}_${C}_${A}_index.log
-$PRJ_DIR/indexvamana.sh  $CURR_DATASET $SIZE $LEN $INDEX $R $L $C $A 0 $LOGOUT
+2. **Facilitating experiment management**: Provided a C++ `main.cpp` interface to run indexing and search separately, simplifying the process of managing and running experiments on HNSW
+3. **Improving the search efficiency**: We adopt a single priority queue beam width for search instead of original code in HNSW for search using inefficient double priority queue for search. A single priority queue search is used accross different graph method in our experiment Please refer to the supplementary material for more details
+4. 
 
 
-VERSION=t2i40M
-K=10
-NQ=100
-for Ls in 60 90 120 150 200 300 400 600 800 1600 2028 3020
-do
-mkdir -p $LOGS/${VERSION}/${SIZE}/${DATASET}/${K}/${R}_${L}_${SIZE}
-LOG_OUT=$LOGS/${VERSION}/${SIZE}/${DATASET}/${K}/${R}_${L}_${SIZE}/VAMANA_${DATASET}_${SIZE}_0_${LEN}_${SIZE}_${R}_${L}_${QUERIES}_${NQ}_${K}_${Ls}_${A}_${C}_${IS_CACHE}_search.log
-$PRJ_DIR/queryvamana.sh ${CURR_DATASET} ${SIZE} ${CURR_QUERIES} ${NQ} $INDEX $LEN $K $Ls $LOG_OUT
-done
+### Prerequisites
 
-exit
+- GCC 4.9+ with OpenMP
+- CMake 3.5+
 
-
-DATASET=data_size1281167_imagenet_len256_org
-CURR_DATASET=/srv/karima-data/datasets/real/$DATASET.bin
-QUERIES=query_size10K_imagenet_len256_org
-CURR_QUERIES=$DATA/queries/imgnet/$QUERIES.bin
-LEN=256
+### Compilation on Linux
+```shell
+mkdir Release
+cd Release
+cmake -DCMAKE_BUILD_TYPE=Release ..
+make
+```
 
 
+### Building
+```shell
+./Release/tests/vamana --dataset dataset.bin --dataset-size n --timeseries-size dim --index indexdirname --K K --L L --C range --alpha alpha --mode 0
+```
 
-SIZE=1000000
-R=60
-L=128
-C=128
-A=1.2
-
-INDEX=$INDEX_DIR/$DATAS/VAMANA_${SIZE}_${R}_${L}_${C}_${A}/
-LOGOUT=$LOGS/VAMANA_${DATASET}_${SIZE}_${LEN}_${R}_${L}_${C}_${A}_index.log
-$PRJ_DIR/indexvamana.sh  $CURR_DATASET $SIZE $LEN $INDEX $R $L $C $A 0 $LOGOUT
-
-
-VERSION=IMAGENET1M
-K=10
-NQ=100
-for Ls in 20 40 80 120 150 200 250 300
-do
-mkdir -p $LOGS/${VERSION}/${SIZE}/${DATASET}/${K}/${R}_${L}_${SIZE}
-LOG_OUT=$LOGS/${VERSION}/${SIZE}/${DATASET}/${K}/${R}_${L}_${SIZE}/VAMANA_${DATASET}_${SIZE}_0_${LEN}_${SIZE}_${R}_${L}_${QUERIES}_${NQ}_${K}_${Ls}_${A}_${C}_${IS_CACHE}_search.log
-$PRJ_DIR/queryvamana.sh ${CURR_DATASET} ${SIZE} ${CURR_QUERIES} ${NQ} $INDEX $LEN $K $Ls $LOG_OUT
-done
-
-exit
+Where:
+- `path/dataset.bin` is the absolute path to the dataset binary file.
+- `n` is the dataset size.
+- `path/indexdirname/` is the absolute path where the index will be stored (the index folder should not already exist).
+- `dim` is the dimension.
+- `K` is the maximum outdegree for nodes during graph construction.
+- `L` is the beamwidth during candidate neighbor search.
+- `C` the maximum num of visited candidate considered (like in NSG).
+- `alpha` RRND factor.
 
 
-############################
-########### DEEP ###########
-############################
-DATASET=data_size1B_deep1b_len96_znorm
-CURR_DATASET=/srv/karima-data/datasets/real/$DATASET.bin
-QUERIES=queries_size100_deep1b_len96_znorm
-CURR_QUERIES=$DATA/queries/deep/$QUERIES.bin
-LEN=96
+### Parameters
+We tune both parameters and selecte the ones giving the best efficiency accuracy tradeoff
 
-DATAS=DEEP
+### Parameters Table
 
-mkdir -p $INDEX_DIR/$DATAS
-
-A=1.3
-
-APXSP=100000
-
-SIZE=8000000
-R=60
-L=600
-C=750
-
-INDEX=$INDEX_DIR/$DATAS/VAMANA_${SIZE}_${R}_${L}_${C}_${A}/
-LOGOUT=$LOGS/VAMANA_${DATASET}_${SIZE}_${LEN}_${R}_${L}_${C}_${A}_index.log
-#$PRJ_DIR/indexvamana.sh  $CURR_DATASET $SIZE $LEN $INDEX $R $L $C $A 0 $LOGOUT
-LOGOUT=$LOGS/VAMANA_${DATASET}_${SIZE}_${LEN}_${R}_${L}_${C}_${A}_outdeg.log
-#$PRJ_DIR/indexvamana.sh  $CURR_DATASET $SIZE $LEN $INDEX $R $L $C $A 20 $LOGOUT
-LOGOUT=$LOGS/VAMANA_${DATASET}_${SIZE}_${LEN}_${R}_${L}_${C}_${APXSP}_approxdiam.log
-$PRJ_DIR/indexvamana.sh  $CURR_DATASET $SIZE $LEN $INDEX $APXSP $L $C $A 22 $LOGOUT
-exit
-SIZE=4000000
-R=50
+| **Parameter** | **Description**                           | **Values (1M Dataset)** | **Values (25GB Dataset)**  | **Values (25GB Dataset)**| **Values (1B Dataset)**  |
+|---------------|-------------------------------------------|--------------------------|---------------------------|--------------------------|---------------------------|
+| **M**         | Maximum connections per node              | 40                       | 60                        | 60                       | 60                        |
+| **EFC**       | Beam width during search                  | 256                      | 600                       | 800                      | 1000                      |
+| **C**       | range                 | 400                     | 600                     | 800                     | 1000                     |
+| **alpha**       | RRND parameters                 | 1.2                      | 1.2                      | 1.1                      | 1.1                      |
 
 
-INDEX=$INDEX_DIR/$DATAS/VAMANA_${SIZE}_${R}_${L}_${C}_${A}/
-LOGOUT=$LOGS/VAMANA_${DATASET}_${SIZE}_${LEN}_${R}_${L}_${C}_${A}_index.log
-$PRJ_DIR/indexvamana.sh  $CURR_DATASET $SIZE $LEN $INDEX $R $L $C $A 0 $LOGOUT
-LOGOUT=$LOGS/VAMANA_${DATASET}_${SIZE}_${LEN}_${R}_${L}_${C}_${A}_outdeg.log
-$PRJ_DIR/indexvamana.sh  $CURR_DATASET $SIZE $LEN $INDEX $R $L $C $A 20 $LOGOUT
-LOGOUT=$LOGS/VAMANA_${DATASET}_${SIZE}_${LEN}_${R}_${L}_${C}_${APXSP}_approxdiam.log
-$PRJ_DIR/indexvamana.sh  $CURR_DATASET $SIZE $LEN $INDEX $APXSP $L $C $A 22 $LOGOUT
+### Search
+```shell
+./Release/tests/vamana --queries path/queries.bin --queries-size nq --index-path path/indexdirname/ --timeseries-size dim  --K k  --L beamwidth 
+```
+Where:
+- `path/queries.bin` is the absolute path to the query set binary file.
+- `nq` is the query set size.
+- `k` is  the number of queries to be answered.
+- `L` is thebeam width size (should be greater than **K**).
 
-
-exit
-
-############################
-########### SALD ###########
-############################
-DATASET=data_size899M_sald_len128_znorm
-QUERIES=queries_size100_sald_len128_znorm
-CURR_DATASET=/srv/karima-data/datasets/real/$DATASET.bin
-CURR_QUERIES=$DATA/$QUERIES.bin
-LEN=128
-DATAS=SALD
-
-mkdir -p $INDEX_DIR/$DATAS
-
-A=1.3
-
-SIZE=1200000
-R=40
-L=600
-C=750
-
-INDEX=$INDEX_DIR/$DATAS/VAMANA_${SIZE}_${R}_${L}_${C}_${A}/
-LOGOUT=$LOGS/VAMANA_${DATASET}_${SIZE}_${LEN}_${R}_${L}_${C}_${A}_index.log
-$PRJ_DIR/indexvamana.sh  $CURR_DATASET $SIZE $LEN $INDEX $R $L $C $A 0 $LOGOUT
-
-exit
-LOGOUT=$LOGS/VAMANA_${DATASET}_${SIZE}_${LEN}_${R}_${L}_${C}_${A}_outdeg.log
-$PRJ_DIR/indexvamana.sh  $CURR_DATASET $SIZE $LEN $INDEX $R $L $C $A 20 $LOGOUT
-LOGOUT=$LOGS/VAMANA_${DATASET}_${SIZE}_${LEN}_${R}_${L}_${C}_${A}_diam.log
-$PRJ_DIR/indexvamana.sh  $CURR_DATASET $SIZE $LEN $INDEX $R $L $C $A 21 $LOGOUT
-
-exit
-
-SIZE=10000
-R=16
-L=128
-C=256
-
-INDEX=$INDEX_DIR/$DATAS/VAMANA_${SIZE}_${R}_${L}_${C}_${A}/
-LOGOUT=$LOGS/VAMANA_${DATASET}_${SIZE}_${LEN}_${R}_${L}_${C}_${A}_index.log
-$PRJ_DIR/indexvamana.sh  $CURR_DATASET $SIZE $LEN $INDEX $R $L $C $A 0 $LOGOUT
-LOGOUT=$LOGS/VAMANA_${DATASET}_${SIZE}_${LEN}_${R}_${L}_${C}_${A}_outdeg.log
-$PRJ_DIR/indexvamana.sh  $CURR_DATASET $SIZE $LEN $INDEX $R $L $C $A 20 $LOGOUT
-LOGOUT=$LOGS/VAMANA_${DATASET}_${SIZE}_${LEN}_${R}_${L}_${C}_${A}_diam.log
-$PRJ_DIR/indexvamana.sh  $CURR_DATASET $SIZE $LEN $INDEX $R $L $C $A 21 $LOGOUT
-
-SIZE=100000
-R=24
-L=256
-C=500
-
-INDEX=$INDEX_DIR/$DATAS/VAMANA_${SIZE}_${R}_${L}_${C}_${A}/
-LOGOUT=$LOGS/VAMANA_${DATASET}_${SIZE}_${LEN}_${R}_${L}_${C}_${A}_index.log
-$PRJ_DIR/indexvamana.sh  $CURR_DATASET $SIZE $LEN $INDEX $R $L $C $A 0 $LOGOUT
-LOGOUT=$LOGS/VAMANA_${DATASET}_${SIZE}_${LEN}_${R}_${L}_${C}_${A}_outdeg.log
-$PRJ_DIR/indexvamana.sh  $CURR_DATASET $SIZE $LEN $INDEX $R $L $C $A 20 $LOGOUT
-LOGOUT=$LOGS/VAMANA_${DATASET}_${SIZE}_${LEN}_${R}_${L}_${C}_${A}_diam.log
-$PRJ_DIR/indexvamana.sh  $CURR_DATASET $SIZE $LEN $INDEX $R $L $C $A 21 $LOGOUT
-
-SIZE=1000000
-R=40
-L=600
-C=750
-
-INDEX=$INDEX_DIR/$DATAS/VAMANA_${SIZE}_${R}_${L}_${C}_${A}/
-LOGOUT=$LOGS/VAMANA_${DATASET}_${SIZE}_${LEN}_${R}_${L}_${C}_${A}_index.log
-$PRJ_DIR/indexvamana.sh  $CURR_DATASET $SIZE $LEN $INDEX $R $L $C $A 0 $LOGOUT
-LOGOUT=$LOGS/VAMANA_${DATASET}_${SIZE}_${LEN}_${R}_${L}_${C}_${A}_outdeg.log
-$PRJ_DIR/indexvamana.sh  $CURR_DATASET $SIZE $LEN $INDEX $R $L $C $A 20 $LOGOUT
-LOGOUT=$LOGS/VAMANA_${DATASET}_${SIZE}_${LEN}_${R}_${L}_${C}_${A}_diam.log
-#$PRJ_DIR/indexvamana.sh  $CURR_DATASET $SIZE $LEN $INDEX $R $L $C $A 21 $LOGOUT
+### Workload
+To automate multiple run, please change the workload.sh with correct data path and parameters 
