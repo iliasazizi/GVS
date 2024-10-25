@@ -1,0 +1,2 @@
+/usr/bin/ar qc libefanna2e_s.a CMakeFiles/efanna2e_s.dir/index.cpp.o CMakeFiles/efanna2e_s.dir/index_graph.cpp.o CMakeFiles/efanna2e_s.dir/index_kdtree.cpp.o CMakeFiles/efanna2e_s.dir/index_random.cpp.o
+/usr/bin/ranlib libefanna2e_s.a
