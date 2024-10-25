@@ -10,7 +10,7 @@ We have modified the original code by:
 1. **Adding binary file support**: Implemented functionality to load raw vector data from binary files, requiring only the number of points and dimensions as input.
 
 2. **Facilitating experiment management**: Provided a C++ `main.cpp` interface to run indexing and search separately, simplifying the process of managing and running experiments on HNSW
-3. **Improving the search efficiency**: We adopt a single priority queue beam width for search instead of original code in HNSW for search using inefficient double priority queue for search. A single priority queue search is used accross different graph method in our experiment Please refer to the supplementary material for more details
+3. **Disable Unfair Optimization**: We disabled the warming of the cache before search with query results, as well as L2 normalization to reduce L2  to MIPS problem.
 
 
 
