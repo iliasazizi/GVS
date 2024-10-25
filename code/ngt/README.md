@@ -1,5 +1,37 @@
+# The Source Code for NGT
+
+
+## Introduction
+
+
+This repository contains the source code for the **NGT** algorithm,
+
+
+### Prerequisites
+
+- GCC 4.9+ with OpenMP
+
+  
+
+### Parameters
+
+We use the default values for all parameters during indexing, as increasing the search range significantly increases the indexing time beyond the limit. However, setting an outdegree of 40 during search and a lower bound of 10 edges gives the best trade-off between indexing efficiency and search performance. We provide the commands to run indexing and search in the workload scripts.
+
+e = 0.1
+E=10
+S=40
+
+
+
+
+
+Please follow instruction below to compile and build the exec
+
+
 NGT
 ===
+
+ngt
 
 Neighborhood Graph and Tree for Indexing High-dimensional Data
 
