@@ -4,7 +4,7 @@
 
 ## Introduction
 Collections of vector data often expand to billions of vectors with thousands of dimensions, thereby escalating the complexity of analysis. Similarity search serves as the linchpin for numerous critical analytical tasks. Graph-based similarity search has recently emerged as the preferred method for analytical tasks that do not necessitate theoretical guarantees on the quality of answers.
-In this survey, we undertake a thorough evaluation of ten state-of-the-art in-memory graph-based similarity search methods :
+In this survey, we undertake a thorough evaluation of twelve state-of-the-art in-memory graph-based similarity search methods :
 
 |   SOTA Alg.   |     PAPER     |   CODE   |
 |:--------:|:------------:|:--------:|
@@ -18,9 +18,12 @@ In this survey, we undertake a thorough evaluation of ten state-of-the-art in-me
 |  SPTAG-BKT  | [ACM MM'2012](https://dl.acm.org/doi/abs/10.1145/2393347.2393378); [CVPR'2012](https://ieeexplore.ieee.org/abstract/document/6247790); [TPAMI'2014](https://ieeexplore.ieee.org/abstract/document/6549106) | [C++](https://github.com/microsoft/SPTAG) |
 |  HCNNG      |  [PR'2019](https://www.sciencedirect.com/science/article/abs/pii/S0031320319302730)  |[C++](https://github.com/Lsyhprum/WEAVESS) |
 |  ELPIS      |  [VLDB'2023](https://www.vldb.org/pvldb/vol16/p1548-azizi.pdf)  |[C++](https://helios2.mi.parisdescartes.fr/~themisp/elpis/data/elpis-sourcecode.zip)|
+|  NGT        |  [SISAP'22] (https://github.com/yahoojapan/NGT) |
+|  LSHAPG     |  [VLDB'23] (https://www.vldb.org/pvldb/vol16/p1979-zhao.pdf) |  [C++] (https://github.com/Jacyhust/LSH-APG])|
+|  HVS        |  [VLDB'21] (https://www.vldb.org/pvldb/vol15/p246-lu.pdf)  | [C++] ([https://github.com/Kejing-Lu/hvs])|
 
 
-Furthermore, we present a survey delineating the chronological evolution of these methods and evaluate their key design decisions, encompassing Seed Selection (SS) and Neighborhood Diversification (ND). This repository contains the code utilized to evaluate different design choices for SS and ND.
+Furthermore, we present a survey delineating the chronological evolution of these methods and evaluate their key design decisions, encompassing Seed Selection (SS) and Neighborhood Diversification (ND). This repository contains the code utilized to evaluate different design choices for SS and ND, and the indexing and search performance of the twelve SotA approaches. For each method, we include parametrization details and any changes done to the original code bases to ensure a fair comparison.
 
 ## Datasets
 We use the following four real datasets covering a variety of domains from deep network embeddings, computer vision, neuroscience and seismology: (i) Deep contains 1 billion vectors of 96 dimensions extracted from the last layers of a convolutional
