@@ -4,9 +4,7 @@ You can measure the hardness of the dataset alone or the query set as well, prov
 
 First, build the code using release.sh; then, for a dataset and query sets:
 
-############################
-########## Dataset #########
-############################
+
 CURR_DATASET=dataset
 CURR_QUERIES=queries
 LEN=256
