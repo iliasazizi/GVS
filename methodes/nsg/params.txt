@@ -1,0 +1,1 @@
+--dataset /home/iazizi/DATA/data_size1M_seed1184_len256_znorm.bin --index-path /home/iazizi/CLionProjects/nsg/index1k/ --init-graph /home/iazizi/CLionProjects/efanna/index1k/index.graph --dataset-size 1000 --timeseries-size 256 --mode 1 --queries /home/iazizi/DATA/queries_size1K_seed14784_len256_znorm.bin --queries-size 10 --L 10 --R 25 --K 10 --C 10
