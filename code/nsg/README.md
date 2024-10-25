@@ -35,29 +35,31 @@ HNSW --dataset dataset.bin --dataset-size n --timeseries-size dim --index-path i
 ```
 
 Where:
-- `dataset` is the absolute path to the dataset binary file.
-- `n` is the dataset size.
-- `efannabaseindexpath/` is the absolute path of efanna base graph.
-- `indexpath` is the absolute path where the index will be stored (the index folder should not already exist).
-- `dim` is the dimension.
-- `K` is the maximum outdegree for nodes during graph construction.
-- `L` is the beamwidth during candidate neighbor search.
-- `C` is the max number of candidates neighbors to consider from visited list during search
+- **`mlevel`**: Maximum level of the multi-layer graph.
+- **`trees`**: Number of randomized KD trees used for clustering.
+- **`iterations`**: Number of iterations for graph refinement.
+- **`L`**: .Number of iterations for graph refinement.
+- **`R`**: Maximum outdegree (connections) per node.
+- **`K`**: Number of nearest neighbors considered during graph refinement.
+- **`S`**: Size of the candidate pool for neighbor selection.
 
-### Parameters
-We tune both parameters and selecte the ones giving the best efficiency accuracy tradeoff
+---
 
-### Parameters Table
+### Suggested Parameter Values
 
-| **Parameter** | **Description**                           | **Values (1M Dataset)** | **Values (25GB Dataset)**  |
-|---------------|-------------------------------------------|--------------------------|---------------------------|
-| **K**         | Maximum connections per node              | 40                       | 60                        | 
-| **L**       | Beam width during search                  | 128                      | 256                       | 
-| **C**       | Candidate set threshold                  | 256                      | 512                      | 
+| **Parameter** | **Description**                           | **Suggested Values (1M Dataset)** | **Suggested Values (25GB Dataset)** |
+|---------------|-------------------------------------------|-----------------------------------|-------------------------------------|
+| **`mlevel`**  | Max graph level                           | 8                                 | 12                                  |
+| **`trees`**   | Number of random projection trees         | 8                                 | 16                                  |
+| **`iterations`** | Number of refinement iterations      | 8                                 | 10                                  |
+| **`L`**       | Beamwidth during search                   | 100                              | 2OO                                  |
+| **`R`**       | Maximum connections per node              | 40                               | 1OO                                  |
+| **`K`**       | Nearest neighbors during refinement       | 100                                | 200                                  |
+| **`S`**       | Candidate pool size                       | 10                                | 20                                  |
 
 ### Search
 ```shell
-/Release/tests/nsg --queries path/queries.bin --queries-size nq --index-path path/indexdirname/ --timeseries-size dim  --K k  --L beamwidth 
+/Release/tests/efanna --queries path/queries.bin --queries-size nq --index-path path/indexdirname/ --timeseries-size dim  --K k  --L beamwidth 
 ```
 Where:
 - `path/queries.bin` is the absolute path to the query set binary file.
