@@ -1,0 +1,1 @@
+/usr/bin/c++ -rdynamic CMakeFiles/ngt_exe.dir/ngt.o -o ngt   -L/home/iazizi/CLionProjects/ngt-develop/NGT/bin/ngt/lib/NGT  -Wl,-rpath,/home/iazizi/CLionProjects/ngt-develop/NGT/bin/ngt/lib/NGT: -lngt -lThreads::Threads 

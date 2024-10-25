@@ -1,0 +1,7 @@
+/home/iazizi/CLionProjects/ngt-develop/NGT/bin/ngt/build/CMakeFiles/ngt_exe.dir
+/home/iazizi/CLionProjects/ngt-develop/NGT/bin/ngt/build/CMakeFiles/edit_cache.dir
+/home/iazizi/CLionProjects/ngt-develop/NGT/bin/ngt/build/CMakeFiles/rebuild_cache.dir
+/home/iazizi/CLionProjects/ngt-develop/NGT/bin/ngt/build/CMakeFiles/list_install_components.dir
+/home/iazizi/CLionProjects/ngt-develop/NGT/bin/ngt/build/CMakeFiles/install.dir
+/home/iazizi/CLionProjects/ngt-develop/NGT/bin/ngt/build/CMakeFiles/install/local.dir
+/home/iazizi/CLionProjects/ngt-develop/NGT/bin/ngt/build/CMakeFiles/install/strip.dir
