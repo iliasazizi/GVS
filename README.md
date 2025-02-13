@@ -79,3 +79,32 @@ Where:
 - `k` is the number of NN results desired.
 - `beamwidth` is the size of the priority queue used during beam search, with `beamwidth` >= `k`.
 - `ep_type` is the type of SS method to use during search, with 0 for StackedNSW, 1 for medoid, 2 for SFREP, 3 for KSREP, and 4 for KDTrees.
+
+## Reference
+
+Please cite our work in your publications if it helps your research:
+
+```
+@misc{@article{10.1145/3709693,
+author = {Azizi, Ilias and Echihabi, Karima and Palpanas, Themis},
+title = {Graph-Based Vector Search: An Experimental Evaluation of the State-of-the-Art},
+year = {2025},
+issue_date = {February 2025},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {3},
+number = {1},
+url = {https://doi.org/10.1145/3709693},
+doi = {10.1145/3709693},
+abstract = {Vector data is prevalent across business and scientific applications, and its popularity is growing with the proliferation of learned embeddings. Vector data collections often reach billions of vectors with thousands of dimensions, thus, increasing the complexity of their analysis. Vector search is the backbone of many critical analytical tasks, and graph-based methods have become the best choice for analytical tasks that do not require guarantees on the quality of the answers. We briefly survey in-memory graph-based vector search, outline the chronology of the different methods and classify them according to five main design paradigms: seed selection, incremental insertion, neighborhood propagation, neighborhood diversification, and divide-and-conquer. We conduct an exhaustive experimental evaluation of twelve state-of-the-art methods on seven real data collections, with sizes up to 1 billion vectors. We share key insights about the strengths and limitations of these methods; e.g., the best approaches are typically based on incremental insertion and neighborhood diversification, and the choice of the base graph can hurt scalability. Finally, we discuss open research directions, such as the importance of devising more sophisticated data-adaptive seed selection and diversification strategies.},
+journal = {Proc. ACM Manag. Data},
+month = feb,
+articleno = {43},
+numpages = {31},
+keywords = {approximate nearest neighbor, graph algorithms, knn graph analysis, neighborhood diversification, seed selection, vector similarity search}
+}
+}
+```
+
+
+
