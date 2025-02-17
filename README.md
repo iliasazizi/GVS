@@ -1,5 +1,5 @@
  
-# Graph-Based Vector Similarity Search: An Experimental Evaluation of the State-of-the-Art
+# Graph-Based Vector Search: An Experimental Evaluation of the State-of-the-Art
 [📄 Read the paper on arXiv](https://arxiv.org/pdf/2502.05575)
 ## Introduction
 Collections of vector data often expand to billions of vectors with thousands of dimensions, thereby escalating the complexity of analysis. Similarity search serves as the linchpin for numerous critical analytical tasks. Graph-based similarity search has recently emerged as the preferred method for analytical tasks that do not necessitate theoretical guarantees on the quality of answers.
