@@ -28,10 +28,13 @@ Furthermore, we present a survey delineating the chronological evolution of thes
 We use the following four real datasets covering a variety of domains from deep network embeddings, computer vision, neuroscience and seismology: (i) Deep contains 1 billion vectors of 96 dimensions extracted from the last layers of a convolutional
 neural network; (ii) Sift consists of 1 billion SIFT vectors of size 128 representing image feature descriptions; (iii) SALD contains neuroscience MRI data and includes 200 million data series of size 128; (iv) Seismic  contains 100 million data series of size 256 representing earthquake recordings at seismic stations worldwide.
 
+### Evaluation of Dataset Hardness
+We employ both Local Intrinsic Dimensionality (LID) and Local Relative Contrast (LRC) to evaluate and compare the hardness of each dataset, using the relative set of queries. We provide script to eventually evaluate the hardness using random datapoint from the given dataset. 
+
 ## ND/SS experiments
 ND and SS experiments code is based on [nmslib/hnswlib code](https://github.com/nmslib/hnswlib)  for constructing insertion-based graphs with various ND approaches and executing searches using multiple SS techniques.
 
-## Usage
+### Usage
 
 ### Prerequisites
 
@@ -79,12 +82,15 @@ Where:
 - `beamwidth` is the size of the priority queue used during beam search, with `beamwidth` >= `k`.
 - `ep_type` is the type of SS method to use during search, with 0 for StackedNSW, 1 for medoid, 2 for SFREP, 3 for KSREP, and 4 for KDTrees.
 
+## Supplementary Material 
+Our supplementary material includes additional analysis that couldn't fit into the paper. We provide theoretical proofs of approximation for ND approaches and an empirical analysis of the theoretical complexity of the beam search algorithm. We also evaluate the performance of single priority queue vs. double priority queue beam search heuristics employed in NMSLIB/HNSW and conduct an empirical study of parameter tuning for GANNS using HNSW as the base case.
+
 ## Reference
 
 Please cite our work in your publications if it helps your research:
 
 ```
-@misc{@article{10.1145/3709693,
+@article{10.1145/3709693,
 author = {Azizi, Ilias and Echihabi, Karima and Palpanas, Themis},
 title = {Graph-Based Vector Search: An Experimental Evaluation of the State-of-the-Art},
 year = {2025},
@@ -94,7 +100,6 @@ journal = {Proc. ACM Manag. Data},
 month = feb,
 articleno = {43},
 numpages = {31},
-}
 }
 ```
 
